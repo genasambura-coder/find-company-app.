@@ -1,26 +1,30 @@
+import { useRouter } from 'expo-router';
 import { ScrollView, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 
 export default function HomeScreen() {
+  const router = useRouter(); // Інструмент для переходу між екранами
+
+  // Категорії відпочинку українською мовою
   const categories = [
-    { id: '1', title: '🔥 Костёр и природа', color: '#FF5722' },
-    { id: '2', title: '🎲 Настольные игры', color: '#4CAF50' },
-    { id: '3', title: '🍹 Бары и террасы', color: '#E91E63' },
-    { id: '4', title: '⚽ Спорт и актив', color: '#2196F3' },
+    { id: '1', title: '🔥 Багаття та природа', color: '#FF5722' },
+    { id: '2', title: '🎲 Настільні ігри', color: '#4CAF50' },
+    { id: '3', title: '🍹 Бари та тераси', color: '#E91E63' },
+    { id: '4', title: '⚽ Спорт та актив', color: '#2196F3' },
   ];
 
   return (
     <SafeAreaView style={styles.container}>
       <ScrollView contentContainerStyle={styles.scrollContainer}>
-        <Text style={styles.headerTitle}>Куда пойдём сегодня?</Text>
-        <Text style={styles.subtitle}>Выберите категорию, чтобы найти компанию</Text>
+        <Text style={styles.headerTitle}>Куди підемо сьогодні?</Text>
+        <Text style={styles.subtitle}>Оберіть категорію, щоб знайти компанію</Text>
 
         <View style={styles.grid}>
           {categories.map((item) => (
             <TouchableOpacity 
               key={item.id} 
               style={[styles.card, { backgroundColor: item.color }]}
-              onPress={() => alert(`Вы открыли: ${item.title}`)}
+              onPress={() => router.push('/explore')} // Перехід на екран зі списком оголошень
             >
               <Text style={styles.cardText}>{item.title}</Text>
             </TouchableOpacity>
@@ -64,11 +68,6 @@ const styles = StyleSheet.create({
     borderRadius: 16,
     justifyContent: 'center',
     alignItems: 'center',
-    elevation: 4,
-    shadowColor: '#000',
-    shadowOffset: { width: 0, height: 2 },
-    shadowOpacity: 0.25,
-    shadowRadius: 3.84,
   },
   cardText: {
     color: '#FFFFFF',
